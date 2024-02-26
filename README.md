@@ -52,7 +52,7 @@ The designed schematics uses a seperate 662K 3.3V voltage regulator for module t
 <img src="https://github.com/ElangovanChelliah/PIC16-1.3Inch-OLED-Interface/blob/b93f52e42c382b0f1b97d97665717313e876241a/Pin%20Diagram.png" width="400">
 
 ### Software Design
-MPLAB X IDE is used to design and develop firmware and software, copy the project files [here], and execute the same to get the desired output, from the example in this project a library is created and LOGO is used to demonstrate the functionality.
+MPLAB X IDE is used to design and develop firmware and software, copy the project files [here](https://github.com/ElangovanChelliah/PIC16-1.3Inch-OLED-Interface/tree/3b928b85792c1b3a9fc59a058e2cbee1c41ed1a5/Firmware), and execute the same to get the desired output, from the example in this project a library is created and LOGO is used to demonstrate the functionality.
 
 Example:
 ```c

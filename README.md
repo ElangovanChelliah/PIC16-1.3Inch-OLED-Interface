@@ -25,6 +25,10 @@ System Design:
     <td>Driver</td>
     <td>SH1106</td>
   </tr>
+    <tr>
+    <td>Interface</td>
+    <td>I2C</td>
+  </tr>
   <tr>
     <td>Oscillator</td>
     <td>INTSOC</td>
@@ -37,14 +41,18 @@ System Design:
 
 ### Hardware Design
 
+The designed schematics uses a seperate 662K 3.3V voltage regulator for module testing, the integrated applications can use the same schematics connected to the common voltage source of 3.3V, Altium designer is used to layout the circuit. 
 
+<img src="https://github.com/ElangovanChelliah/PIC16-1.3Inch-OLED-Interface/blob/7bf8ae4249119983b670ed0e5f937535a9344fe7/Schematics.png" width="600">
+
+### Pin Diagram
 
 //Example 1
 
 # PIC-BLE-Based-Remote-Controller
 A battery powered PIC18 &amp; BLE based remote controller used for wireless HMI. This project mainly created to control various applications wirelessly. 
 
-<img src="https://github.com/Sylaina/oled-display/blob/master/oled.jpg?raw=true" width="500">
+
 
 //Example 2
 

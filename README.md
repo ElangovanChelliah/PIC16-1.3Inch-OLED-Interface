@@ -52,7 +52,7 @@ The designed schematics uses a seperate 662K 3.3V voltage regulator for module t
 <img src="https://github.com/ElangovanChelliah/PIC16-1.3Inch-OLED-Interface/blob/b93f52e42c382b0f1b97d97665717313e876241a/Pin%20Diagram.png" width="400">
 
 ### Software Design
-MPLAB X IDE is used to design and develop firmware and software, copy the project files and execute the same to get the desired output, from the example in this project a library is created and LOGO is used to demonstrate the functionality.
+MPLAB X IDE is used to design and develop firmware and software, copy the project files [here], and execute the same to get the desired output, from the example in this project a library is created and LOGO is used to demonstrate the functionality.
 
 Example:
 ```c
@@ -81,89 +81,127 @@ static unsigned char Frame[] = {
 
 ```
 
-
-//Example 1
-
-# PIC-BLE-Based-Remote-Controller
-A battery powered PIC18 &amp; BLE based remote controller used for wireless HMI. This project mainly created to control various applications wirelessly. 
-
-
-
-//Example 2
-
-Endless runner game developed for the AVR ATtiny10 microcontroller and a 128x32 monochrome OLED Display [here](http://www.bitbanging.space/posts/smallest-solar-powered-videogame).
-
-//Example 3
-
-### for Chain Symbol
-
-//Example 4
-
-`SSD1306-128x64_OLED.lib` 
-
-//Example 5
-
-Memory:
-<table>
-  <tr>
-    <th>Modul</th>
-    <th>Flash</th>
-    <th>Static RAM</th>
-  </tr>
-  <tr>
-    <td>I2C-Core</td>
-    <td>220 Bytes</td>
-    <td>0 Bytes</td>
-  </tr>
-  <tr>
-    <td>FONT</td>
-    <td>660 Bytes</td>
-    <td>0 Bytes</td>
-  </tr>
-  <tr>
-    <td>OLED (Text-Mode)</td>
-    <td>1437 Bytes</td>
-    <td>2 Bytes</td>
-  </tr>
-  <tr>
-    <td>OLED (Graphic-Mode)</td>
-    <td>2561 Bytes</td>
-    <td>1026 Bytes</td>
-  </tr>
- </table>
-
-
-//Example 6
-
-Example
+### SH1106 Library for I2C
 
 ```c
-//****main.c****//
-#include "lcd.h"
+//****sh1106.c****//
 
+void I2C_Start(void){
+    SCL = 0;
+	__delay_us(1);
+	SDA = 1;
+	SCL = 1;
+	__delay_us(1);
+	SDA = 0;
+	SCL = 0;
+}
 
-int main(void){
-  lcd_init(LCD_DISP_ON);    // init lcd and turn on
-  
-  lcd_puts("Hello World");  // put string from RAM to display (TEXTMODE) or buffer (GRAPHICMODE)
-  lcd_gotoxy(0,2);          // set cursor to first column at line 3
-  lcd_puts_p(PSTR("String from flash"));  // puts string form flash to display (TEXTMODE) or buffer (GRAPHICMODE)
-#if defined GRAPHICMODE
-  lcd_drawCircle(64,32,7,WHITE); // draw circle to buffer
-  lcd_display();                  // send buffer to display
-#endif
-  for(;;){
-    //main loop
-  }
-  return 0;
+void I2C_Stop(void){
+    SCL = 0;
+	SDA = 0;
+	SCL = 1;
+	__delay_us(1);
+	SDA = 1;
+}
+
+bool SH1106_Write_1byte(uint8_t D){
+    uint8_t i;
+    bool SH1106_Ack = 0;
+    uint8_t Data = D;
+    for(i=0;i<8;i++){
+        SDA = (bool)(Data&0x80);
+        NOP();
+        SCL = 1;
+        NOP();NOP();
+        SCL = 0;
+        Data = Data<<1;
+    }
+    SDA = 1;
+    NOP();NOP();
+    SCL = 1;
+    NOP();NOP();
+    SH1106_Ack = SDA_Ack;
+    SCL = 0;
+    return SH1106_Ack;
+}
+
+void SH1106_Write_Command(uint8_t Command){
+    I2C_Start();
+    SH1106_Write_1byte(SH1106_ADD_Write);
+    SH1106_Write_1byte(SH1106_Command);
+    SH1106_Write_1byte(Command);
+    I2C_Stop();
+}
+
+void SH1106_Write_Data(uint8_t Data){
+    I2C_Start();
+    SH1106_Write_1byte(SH1106_ADD_Write);
+    SH1106_Write_1byte(SH1106_Data);
+    SH1106_Write_1byte(Data);
+    I2C_Stop();
+}
+
+void SH1106_Clear_Screen(uint8_t disp_data){
+    uint8_t page_index = 0, colume_index = 0;
+    for(page_index=0;page_index<8;page_index++){
+        SH1106_Write_Command(0xB0 + page_index);
+        SH1106_Write_Command(0x10);
+        SH1106_Write_Command(0x02);
+        for(colume_index=0;colume_index<128;colume_index++){
+            SH1106_Write_Data(disp_data);
+        }
+    }
+}
+
+void SH1106_init(void){
+    I2C_Stop();
+    SH1106_Write_Command(0xAE);
+    SH1106_Write_Command(0xD5);
+    SH1106_Write_Command(0x80);
+    SH1106_Write_Command(0xAD);
+    SH1106_Write_Command(0x8B);
+    SH1106_Write_Command(0x32);
+    SH1106_Write_Command(0x81);
+    SH1106_Write_Command(0x80);
+    SH1106_Write_Command(0xDA);
+    SH1106_Write_Command(0x12);
+    SH1106_Write_Command(0xD3);
+    SH1106_Write_Command(0x00);
+    SH1106_Write_Command(0xA1);
+    SH1106_Write_Command(0xC8);
+    SH1106_Write_Command(0xA6);
+    SH1106_Write_Command(0xAF);
+}
+
+void SH1106_Set_Pos(uint8_t x, uint8_t y){
+    SH1106_Write_Command(0xB0 + y);
+    //設置列位址高4位
+    //10H-17H    0 0 0 1 A7 A6 A5 A4
+    SH1106_Write_Command((((x+2)&0xF0)>>4) | 0x10);
+    //設置列位址低4位
+    //00H-0FH    0 0 0 0 A3 A2 A1 A0
+    SH1106_Write_Command((x+2)&0x0F);
+}
+
+void SH1106_Display(void){
+    uint8_t page_index = 0, colume_index = 0;
+    for(page_index=3;page_index<5;page_index++){
+        SH1106_Write_Command(0xB0 + page_index);
+        SH1106_Write_Command(0x10);
+        SH1106_Write_Command(0x02);
+        for(colume_index=0;colume_index<128;colume_index++){
+            if(page_index == 3)
+                SH1106_Write_Data(Frame[colume_index*2]);
+            else
+                SH1106_Write_Data(Frame[colume_index*2+1]);
+        }
+    }
 }
 ```
-//Example 7
-Use this command (mind the paths of avrdude and its config file):
-```
-./avrdude -e -v -p attiny10 -C ./avrdude.conf -c usbasp -U flash:w:firmware.hex:i -P usb
-```
-```
-./avrdude -e -v -p attiny10 -C ./avrdude.conf -c usbasp -U flash:w:firmware.hex:i -P usb
-```
-<div><img src="./assets/schematics.png" width=350px></div>
+
+
+### Output
+The SH1106 I2C 1.3 Inch OLED can work successfully and can display graphics.
+
+<img src="https://github.com/ElangovanChelliah/PIC16-1.3Inch-OLED-Interface/blob/aaa293a598f0cbdf646f21cc152dbaaec0948218/Output.jpg" width="1100">
+g" width=350px></div>

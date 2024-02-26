@@ -1,11 +1,41 @@
 # PIC18-1.3Inch-OLED-Interface
 
-This project demonstrates a simple hardware design for 1.3 inch monochrome OLED Module and  PIC16 Interface, the given schematics and can be integrated to any other OLED required projects like medical devices, gaming console, information display. The aim of the project is to design, develop and test the OLED functionality with PIC16F1615 combined with custom circuit design feasible for integration in future projects. 
+This project demonstrates a simple hardware design for 1.3 inch monochrome OLED Module and  PIC16 Interface, the given schematics and can be integrated to any other OLED required projects like medical devices, gaming console, information display. The aim of the project is to design, develop and test the OLED functionality with PIC16F1615 combined with custom circuit design feasible for integration in OLED involved future projects.
 
+### Softwares used
+`Altium Designer` `MPLAB X IDE` `Proteus` `Tear Term` 
+### Skills
+`Circuit Design` `Schematic Capture` `PCB Layout` `Debugging & Testing` `Embedded C` `Embedded Product Development`
 
+System Design:
+<table>
+  <tr>
+    <th>Component</th>
+    <th>Specification</th>
+  </tr>
+  <tr>
+    <td>MCU</td>
+    <td>PIC16F1615</td>
+  </tr>
+  <tr>
+    <td>OLED</td>
+    <td>1.3 Inch</td>
+  </tr>
+  <tr>
+    <td>Driver</td>
+    <td>SH1106</td>
+  </tr>
+  <tr>
+    <td>Oscillator</td>
+    <td>INTSOC</td>
+  </tr>
+    <tr>
+    <td>Internal Clock</td>
+    <td>16MhZ</td>
+  </tr>
+ </table>
 
-
-SH1106
+### Hardware Design
 
 
 

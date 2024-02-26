@@ -204,4 +204,3 @@ void SH1106_Display(void){
 The SH1106 I2C 1.3 Inch OLED can work successfully and can display graphics.
 
 <img src="https://github.com/ElangovanChelliah/PIC16-1.3Inch-OLED-Interface/blob/aaa293a598f0cbdf646f21cc152dbaaec0948218/Output.jpg" width="1100">
-g" width=350px></div>

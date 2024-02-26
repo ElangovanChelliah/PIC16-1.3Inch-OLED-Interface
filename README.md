@@ -201,6 +201,30 @@ void SH1106_Display(void){
 
 
 ### Output
+
+Example:
+
+This is a simple example for displaying the example font, initialize the library, initialize the display, clear the display and display the custom font.
+```c
+//****main.c****//
+#include "mcc_generated_files/mcc.h"
+#include "mcc_generated_files/pin_manager.h"
+#include "SH1106_Lib/myOLED_SH1106.h"
+
+void main(void)
+{
+    //initialize the device
+    SYSTEM_Initialize();
+
+    __delay_ms(500);
+    
+    SH1106_init();
+    SH1106_Clear_Screen(0x00);
+    SH1106_Display(char);
+}
+
+```
+
 The SH1106 I2C 1.3 Inch OLED can work successfully and can display graphics.
 
 <img src="https://github.com/ElangovanChelliah/PIC16-1.3Inch-OLED-Interface/blob/aaa293a598f0cbdf646f21cc152dbaaec0948218/Output.jpg" width="1100">

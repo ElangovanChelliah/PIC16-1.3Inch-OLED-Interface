@@ -1,6 +1,6 @@
 # PIC18-1.3Inch-OLED-Interface
 
-This project demonstrates a simple hardware design for 1.3 inch monochrome OLED Module and  PIC16 Interface, the given schematics and can be integrated to any other OLED required projects like medical devices, gaming console, information display. The aim of the project is to design, develop and test the OLED functionality with PIC16F1615 combined with custom circuit design feasible for integration in OLED involved future projects.
+This project demonstrates a simple hardware design for 1.3 inch monochrome OLED Module and  PIC16 Interface, the given schematics and can be integrated to any other OLED required projects like medical devices, gaming console, information display. The aim of the project is to design, develop and test the OLED functionality with PIC16F1615 combined with custom I2C circuit design feasible for OLED involved future projects.
 
 ### Softwares used
 `Altium Designer` `MPLAB X IDE` `Proteus` `Tear Term` 
@@ -41,9 +41,11 @@ System Design:
 
 ### Hardware Design
 
-The designed schematics uses a seperate 662K 3.3V voltage regulator for module testing, the integrated applications can use the same schematics connected to the common voltage source of 3.3V, Altium designer is used to layout the circuit. 
+The designed schematics uses a seperate 662K 3.3V voltage regulator for module testing, the integrated applications can use the same schematics connected to the common voltage source of 3.3V, Altium designer is used to layout the circuit. The schematics can be transformed to desired layouts like module or custom hardware. 
 
 <img src="https://github.com/ElangovanChelliah/PIC16-1.3Inch-OLED-Interface/blob/7bf8ae4249119983b670ed0e5f937535a9344fe7/Schematics.png" width="600">
+
+<img src="https://github.com/ElangovanChelliah/PIC16-1.3Inch-OLED-Interface/blob/fb46c0077c1c229d86bac8b4fa5d2c523bebb977/1.3%20Inch%20OLED.png" width="300">
 
 ### Pin Diagram
 

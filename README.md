@@ -22,6 +22,10 @@ System Design:
     <td>1.3 Inch</td>
   </tr>
   <tr>
+    <td>Pixel</td>
+    <td>128x64</td>
+  </tr>	
+  <tr>
     <td>Driver</td>
     <td>SH1106</td>
   </tr>
